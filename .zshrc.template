@@ -1,0 +1,149 @@
+##############################################
+#  MSSU Dev Environment – Zsh Template
+#  Drop-in shell config for Java / Grails work
+##############################################
+
+########## PATH / Homebrew ##########
+
+export PATH="$HOME/Bin:$PATH"
+
+if command -v brew >/dev/null 2>&1; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+
+########## SDKMAN ##########
+
+export SDKMAN_DIR="$HOME/.sdkman"
+if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
+  # shellcheck disable=SC1090
+  source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi
+
+
+########## Shell Behavior ##########
+
+# vi-style keybindings
+set -o vi
+
+# History
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE="$HOME/.zsh_history"
+
+setopt SHARE_HISTORY        # share between sessions
+setopt HIST_IGNORE_ALL_DUPS # drop duplicate entries
+setopt HIST_REDUCE_BLANKS   # trim extra spaces
+setopt INC_APPEND_HISTORY   # write as commands are entered
+
+# Quality of life
+setopt AUTO_CD              # "cd" just by typing dir name
+setopt CORRECT              # suggest spelling corrections
+setopt INTERACTIVE_COMMENTS # allow comments in interactive shell
+
+
+########## Prompt (Starship) ##########
+
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
+
+
+########## FZF Integration (if installed) ##########
+
+if command -v fzf >/dev/null 2>&1; then
+  # Basic completion + keybindings
+  # brew's fzf install usually shows how to enable this; this is the generic init.
+  [ -f "${HOME}/.fzf.zsh" ] && source "${HOME}/.fzf.zsh"
+fi
+
+
+########## zoxide (smart cd) ##########
+
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+  alias c='z'
+fi
+
+
+########## LS / Colors ##########
+
+# macOS ls uses -G for color
+alias ls='ls -G'
+alias ll='ls -lah'
+alias la='ls -A'
+alias l='ls -CF'
+
+
+########## Git Aliases ##########
+
+alias gs='git status -sb'
+alias ga='git add'
+alias gc='git commit'
+alias gco='git checkout'
+alias gb='git branch'
+alias gd='git diff'
+alias gl='git log --oneline --graph --decorate'
+alias gp='git push'
+alias gpf='git push --force-with-lease'
+alias gstash='git stash'
+alias gpop='git stash pop'
+
+
+########## Java / Grails / Gradle ##########
+
+alias jver='java -version'
+alias gver='grails -version'
+
+alias gclean='./gradlew clean'
+alias gboot='./gradlew bootRun'
+alias gtest='./gradlew test'
+
+# universal Grails/Gradle runner from project root
+grun() {
+  if [ -f "./gradlew" ]; then
+    ./gradlew bootRun
+  elif command -v grails >/dev/null 2>&1; then
+    grails run-app
+  else
+    echo "No Gradle wrapper or grails command found in this directory."
+    return 1
+  fi
+}
+
+gcleanall() {
+  if [ -f "./gradlew" ]; then
+    ./gradlew clean
+    rm -rf ./.gradle ./build
+  else
+    echo "No Gradle wrapper found."
+    return 1
+  fi
+}
+
+
+########## PostgreSQL Helpers ##########
+
+if command -v brew >/dev/null 2>&1; then
+  alias pgstart='brew services start postgresql@16'
+  alias pgstop='brew services stop postgresql@16'
+  alias pgstatus='brew services list | grep postgres'
+fi
+
+
+########## Navigation ##########
+
+alias ccode='cd "$HOME/Code"'
+alias cmssu='cd "$HOME/Code/mssu"'
+alias csandbox='cd "$HOME/Sandbox"'
+alias cdev='cd "$HOME/Dev"'
+alias cproj='cd "$HOME/Projects/mssu"'
+
+
+########## Misc Helpers ##########
+
+# Quick edit of zsh config
+alias ezsh='${EDITOR:-nano} "$HOME/.zshrc"'
+
+# Reload shell config
+alias rzsh='source "$HOME/.zshrc" && echo "Reloaded ~/.zshrc"'
