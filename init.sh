@@ -17,13 +17,13 @@ fi
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# --- Folder Structure (WORK-ONLY + SANDBOX) ---
+# --- Folder Structure ---
 echo "[*] Creating folder structure..."
 
-# Work code
+# Project code
 mkdir -p "$HOME/Code/mssu"
 
-# Neutral sandbox for experiments / learning (no client work here)
+# Sandbox for experiments / learning 
 mkdir -p "$HOME/Sandbox"
 
 # Runtimes / DBs
@@ -35,7 +35,7 @@ mkdir -p "$HOME/Dev/databases/postgres"
 mkdir -p "$HOME/Bin"
 mkdir -p "$HOME/.config"
 
-# Work documentation
+# Documentation / notes
 mkdir -p "$HOME/Projects/mssu"
 
 # --- Homebrew packages ---
