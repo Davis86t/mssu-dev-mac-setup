@@ -122,13 +122,12 @@ gcleanall() {
 }
 
 
-########## PostgreSQL Helpers ##########
+########## Oracle Helpers ##########
 
-if command -v brew >/dev/null 2>&1; then
-  alias pgstart='brew services start postgresql@16'
-  alias pgstop='brew services stop postgresql@16'
-  alias pgstatus='brew services list | grep postgres'
-fi
+# SQLcl installs a `sql` command (Oracle SQL Developer Command Line)
+alias sqlcl='sql'
+alias sqlver='sql -version'
+
 
 
 ########## Navigation ##########

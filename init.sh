@@ -29,7 +29,7 @@ mkdir -p "$HOME/Sandbox"
 # Runtimes / DBs
 mkdir -p "$HOME/Dev/java"
 mkdir -p "$HOME/Dev/grails"
-mkdir -p "$HOME/Dev/databases/postgres"
+mkdir -p "$HOME/Dev/databases/oracle"
 
 # Scripts + config
 mkdir -p "$HOME/Bin"
@@ -41,8 +41,8 @@ mkdir -p "$HOME/Projects/mssu"
 # --- Homebrew packages ---
 echo "[*] Installing Homebrew packages..."
 
-brew install git wget httpie jq tree fzf fd ripgrep zoxide postgresql@16 starship
-brew install --cask iterm2 rectangle alt-tab
+brew install git wget httpie jq tree fzf fd ripgrep zoxide starship
+brew install --cask temurin sqlcl iterm2 rectangle alt-tab
 
 # --- SDKMAN ---
 if [ ! -d "$HOME/.sdkman" ]; then

@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/macos-Dev%20Environment-1E1E1E?style=for-the-badge&logo=apple" />
   <img src="https://img.shields.io/badge/Grails-6.0-FF9800?style=for-the-badge&logo=gradle" />
   <img src="https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk" />
-  <img src="https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql" />
+  <img src="https://img.shields.io/badge/Oracle-SQL%20Developer-red?style=for-the-badge&logo=oracle" />
 </p>
 
 <h1 align="center">📘 MSSU Developer Mac Setup</h1>
@@ -28,7 +28,7 @@
 - Installs:
   - Homebrew + essential CLI tools  
   - SDKMAN, Java 17, Grails 6  
-  - PostgreSQL 16  
+  - Oracle SQL Developer (GUI) + SQLcl (CLI)  
   - iTerm2, Rectangle, AltTab  
 - Creates a clean development folder layout  
 - Provides a tuned zsh setup with aliases & quality-of-life improvements  
@@ -61,7 +61,7 @@ source ~/.zshrc
     java/
     grails/
     databases/
-        postgres/
+        oracle/
 
 ~/Bin/
 ~/.config/
@@ -78,12 +78,25 @@ source ~/.zshrc
 java -version
 grails -version
 brew --version
-pgstatus
+sql -version
 ```
 
 ---
 
 ## 🧠 Manual Install (Optional)
+
+
+### Install Oracle SQL Developer (GUI)
+Oracle SQL Developer is used on campus for connecting to Oracle databases (ex: Banner).
+
+1) Download SQL Developer for macOS from Oracle
+2) Extract the zip
+3) Launch the app and create a connection (you’ll need the host/port/service name + credentials)
+
+Official downloads: https://www.oracle.com/database/sqldeveloper/technologies/download/
+
+> Note: SQLcl (installed by this repo) is the command-line companion to SQL Developer.
+
 
 ### Install Xcode Tools
 ```bash
@@ -127,7 +140,7 @@ cd <project>
 | Issue | Solution |
 |-------|----------|
 | Grails not found | `source ~/.zshrc` |
-| PostgreSQL won't start | `pgstop && pgstart` |
+| SQL Developer won't launch | Download the macOS build that includes the Oracle JDK (or install a supported JDK) |
 | Permission denied | `chmod +x gradlew` |
 
 ---
@@ -138,7 +151,7 @@ Your macOS machine is now fully equipped with:
 
 - Java 17  
 - Grails 6  
-- PostgreSQL 16  
+- Oracle SQL Developer / SQLcl  
 - Homebrew tooling  
 - A polished zsh environment  
 
