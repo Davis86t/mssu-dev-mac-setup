@@ -30,7 +30,7 @@
   - SDKMAN, Java 17, Grails 6  
   - Oracle SQL Developer (GUI) + SQLcl (CLI)  
   - iTerm2, Rectangle, AltTab  
-- Creates a clean development folder layout  
+- Assumes a clean, opinionated development folder layout (documented below) 
 - Provides a tuned zsh setup with aliases & quality-of-life improvements  
 
 ---
@@ -38,7 +38,7 @@
 ## 🚀 Quick Install
 
 ```bash
-cd ~
+cd ~/Documents/Code/mssu
 git clone https://github.com/Davis86t/mssu-dev-mac-setup
 cd mssu-dev-mac-setup
 
@@ -51,24 +51,42 @@ source ~/.zshrc
 
 ## 📁 Folder Structure
 
+This repository does not create directories automatically.
+The layout below documents the recommended local structure only.
+
+**Root:** `~/Documents/`  
+(avoids Desktop clutter, OneDrive sync issues, and IT permission problems)
+
 ```
-~/Code/
-    mssu/         # project repos
+~/Documents/
+  Code/
+    mssu/
+      mssu-dev-mac-setup/   # THIS repo — Mac bootstrap & dev environment setup
+      <other-repos>/        # MSSU application source code
+    personal/               # Personal repos (optional)
 
-~/Sandbox/        # experiments, scratch work, learning
-
-~/Dev/
-    java/
-    grails/
+  Dev/
+    java/                   # JDKs, Java tooling notes, version references
+    grails/                 # Grails SDK notes, framework-specific utilities
     databases/
-        oracle/
+      oracle/               # Oracle client tools, wallets, tnsnames (as permitted)
+      postgres/             # Postgres scripts, dumps, local helpers (if needed)
 
-~/Bin/
-~/.config/
+  Projects/
+    mssu/                   # Documentation ONLY (architecture notes, runbooks, diagrams)
 
-~/Projects/
-    mssu/         # documentation, architecture notes
+  Sandbox/                  # Experiments, spikes, learning, throwaway code
+  Bin/                      # User-level scripts added to PATH (no sudo)
+  config/                   # Tool/app configs you maintain (replacement for ~/.config)
 ```
+
+### Rules
+- **Source code lives in `Code/`**
+- **Setup & bootstrap repos live in `Code/mssu/`**
+- **Docs never mix with code** → `Projects/`
+- **SDKs & tooling ≠ repos** → `Dev/`
+- **Nothing runs from OneDrive**
+- **No sudo-owned files in your home directory**
 
 ---
 
@@ -85,18 +103,19 @@ sql -version
 
 ## 🧠 Manual Install (Optional)
 
-
 ### Install Oracle SQL Developer (GUI)
 Oracle SQL Developer is used on campus for connecting to Oracle databases (ex: Banner).
 
-1) Download SQL Developer for macOS from Oracle
-2) Extract the zip
-3) Launch the app and create a connection (you’ll need the host/port/service name + credentials)
+1) Download SQL Developer for macOS from Oracle  
+2) Extract the zip  
+3) Launch the app and create a connection (host / port / service + credentials)
 
-Official downloads: https://www.oracle.com/database/sqldeveloper/technologies/download/
+Official downloads:  
+https://www.oracle.com/database/sqldeveloper/technologies/download/
 
 > Note: SQLcl (installed by this repo) is the command-line companion to SQL Developer.
 
+---
 
 ### Install Xcode Tools
 ```bash
@@ -127,7 +146,7 @@ sdk install grails 6.0.0
 ## 🔧 Running Your First Project
 
 ```bash
-cd ~/Code/mssu
+cd ~/Documents/Code/mssu
 git clone <repo>
 cd <project>
 ./gradlew bootRun
@@ -138,9 +157,9 @@ cd <project>
 ## 🐛 Troubleshooting
 
 | Issue | Solution |
-|-------|----------|
+|------|----------|
 | Grails not found | `source ~/.zshrc` |
-| SQL Developer won't launch | Download the macOS build that includes the Oracle JDK (or install a supported JDK) |
+| SQL Developer won't launch | Download the macOS build that includes the Oracle JDK |
 | Permission denied | `chmod +x gradlew` |
 
 ---
@@ -153,7 +172,6 @@ Your macOS machine is now fully equipped with:
 - Grails 6  
 - Oracle SQL Developer / SQLcl  
 - Homebrew tooling  
-- A polished zsh environment  
+- A clean, professional folder layout  
 
 Start building. 🚀
-
