@@ -49,6 +49,39 @@ source ~/.zshrc
 
 ---
 
+## ⚠️ Known macOS Quirks (Read This Once)
+
+This setup has been tested on **Apple Silicon (M-series) Macs**. A few platform realities are worth knowing up front.
+
+### Apple Silicon + Grails
+- Grails 6 ships with an **x86_64 (Intel) launcher**.
+- On Apple Silicon, **Rosetta 2 is required** to run Grails.
+- If prompted by macOS, install Rosetta:
+  ```bash
+  softwareupdate --install-rosetta --agree-to-license
+  ```
+
+### SDKMAN + `nounset`
+- SDKMAN **does not work correctly if `nounset` (`set -u`) is enabled**.
+- If you use strict shell modes, ensure `nounset` is disabled **before** SDKMAN initialization.
+- This repository **does not enforce shell strictness**.
+
+### SQLcl (Not Provided by SDKMAN)
+- **SQLcl is not available via SDKMAN** on macOS.
+- SQLcl must be installed **separately**, typically via **Homebrew**:
+  ```bash
+  brew install --cask sqlcl
+  ```
+- The Homebrew cask installs SQLcl but **does not add `sql` to PATH automatically**.
+- You may need to manually add SQLcl to your PATH:
+  ```bash
+  export PATH="/opt/homebrew/Caskroom/sqlcl/<version>/sqlcl/bin:$PATH"
+  ```
+
+These behaviors are properties of macOS and the upstream tools — not bugs in this repository.
+
+---
+
 ## 📁 Folder Structure
 
 This repository does not create directories automatically.
